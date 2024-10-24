@@ -1,0 +1,396 @@
+/* Global Styles */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #000;
+    color: white;
+}
+
+header {
+    background-color: #000;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #cda075;
+}
+
+header .logo img {
+    max-width: 150px;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #cda075;
+}
+
+footer {
+    background-color: #000;
+    padding: 20px;
+    text-align: center;
+    border-top: 2px solid #cda075;
+}
+
+footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+footer ul li {
+    margin: 0 10px;
+}
+
+footer ul li a {
+    color: #cda075;
+    text-decoration: none;
+}
+
+/* Hero Section */
+.hero {
+    background: url('images/hero-bg.jpg') no-repeat center center/cover;
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 60px;
+    color: white;
+    margin: 0;
+}
+
+.hero p {
+    font-size: 20px;
+    color: #cda075;
+    margin: 20px 0;
+}
+
+.hero .btn {
+    background-color: #cda075;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 18px;
+    border-radius: 5px;
+}
+
+.hero .btn:hover {
+    background-color: #9E3C1E;
+}
+
+/* About Section */
+.about {
+    background-color: #000;
+    padding: 50px;
+    text-align: center;
+}
+
+.about h2, .about h1 {
+    color: #cda075;
+    font-size: 40px;
+}
+
+.about p {
+    font-size: 18px;
+    color: white;
+}
+
+.about .btn {
+    background-color: #cda075;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.about .btn:hover {
+    background-color: #9E3C1E;
+}
+
+/* Login Page */
+.login-options {
+    padding: 50px;
+    text-align: center;
+}
+
+.login-options h1 {
+    font-size: 40px;
+    color: #cda075;
+}
+
+.role-buttons {
+    margin-top: 20px;
+}
+
+.role-buttons .btn {
+    background-color: #cda075;
+    color: white;
+    padding: 15px 30px;
+    margin: 10px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 18px;
+}
+
+.role-buttons .btn:hover {
+    background-color: #9E3C1E;
+}
+
+/* Manager Page */
+.manager {
+    padding: 50px;
+    text-align: center;
+}
+
+/* IT Desk Page */
+.it-desk {
+    padding: 50px;
+    text-align: center;
+}
+
+#logsTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#logsTable th, #logsTable td {
+    border: 1px solid #cda075;
+    padding: 10px;
+    text-align: left;
+}
+
+#logsTable th {
+    background-color: #cda075;
+}
+
+/* Parallax Background */
+.parallax {
+    height: 100vh;
+    background-size: cover;
+    background-attachment: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#parallax1 {
+    background-image: url('images/parallax1.jpg');
+}
+
+#parallax2 {
+    background-image: url('images/parallax2.jpg');
+}
+
+#parallax3 {
+    background-image: url('images/parallax3.jpg');
+}
+
+.parallax-content h1 {
+    font-size: 60px;
+    color: white;
+}
+
+.parallax-content p {
+    font-size: 20px;
+    color: white;
+}
+
+.story {
+    background-color: #CDA075;
+    color: white;
+    padding: 50px;
+    text-align: center;
+}
+
+.story h2 {
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+.story p {
+    font-size: 18px;
+}
+
+.btn {
+    background-color: #CDA075;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 18px;
+}
+
+.btn:hover {
+    background-color: #9E3C1E;
+}
+
+/* Reservation Page */
+.reservation {
+    background-color: #000;
+    color: white;
+    padding: 50px;
+    text-align: center;
+}
+
+.reservation h2 {
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+.reservation form {
+    margin: 20px auto;
+    max-width: 600px;
+    background-color: #CDA075;
+    padding: 30px;
+    border-radius: 8px;
+}
+
+.reservation label {
+    display: block;
+    text-align: left;
+    margin-bottom: 8px;
+}
+
+.reservation input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 5px;
+}
+
+.social-login {
+    margin-top: 30px;
+}
+
+.social-login h3 {
+    color: #CDA075;
+    font-size: 24px;
+}
+
+.social {
+    margin-top: 10px;
+    padding: 15px 25px;
+    display: inline-block;
+    border-radius: 5px;
+}
+
+.facebook {
+    background-color: #3b5998;
+    color: white;
+}
+
+.instagram {
+    background-color: #E1306C;
+    color: white;
+}
+
+.facebook:hover, .instagram:hover {
+    opacity: 0.8;
+}
+
+/* Menu Page */
+.menu {
+    background-color: #000;
+    color: white;
+    padding: 50px;
+    text-align: center;
+}
+
+.menu-item {
+    background-color: #CDA075;
+    padding: 30px;
+    margin: 20px auto;
+    border-radius: 8px;
+    max-width: 600px;
+}
+
+.menu-item h2 {
+    font-size: 30px;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.menu-item p {
+    font-size: 18px;
+    color: #fff;
+}
+
+/* Home Page */
+.home-intro {
+    background-color: #000;
+    color: white;
+    padding: 50px;
+    text-align: center;
+}
+
+.home-intro h2 {
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+.home-intro p {
+    font-size: 18px;
+}
+
+.home-intro .btn {
+    background-color: #CDA075;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 18px;
+}
+
+.home-intro .btn:hover {
+    background-color: #9E3C1E;
+}
+
+/* Header Styles */
+.auth-links {
+    display: flex;
+    align-items: center;
+}
+
+.auth-links a {
+    color: white;
+    text-decoration: none;
+    margin-left: 15px;
+    font-size: 18px;
+    transition: color 0.3s ease;
+}
+
+.auth-links a:hover {
+    color: #cda075;
+}
+
+/* Icon Styles */
+.auth-links i {
+    margin-right: 5px;
+}

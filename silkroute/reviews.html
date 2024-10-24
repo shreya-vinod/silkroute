@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Silk Route - Reviews</title>
+    <link rel="icon" href="images/logo.png" type="image/x-icon"> 
+    
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+
+        .hero {
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+            text-align: center;
+        }
+
+        .reviews-container {
+            padding: 20px;
+        }
+
+        .review-box {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            color:black;
+        }
+
+        .review-form {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .review-form textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        .btn-submit {
+            padding: 10px 20px;
+            background-color: #cda075;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-submit:hover {
+            background-color: #9E3C1E;
+        }
+
+        .star-rating {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .star {
+            font-size: 24px;
+            color: grey; /* Default grey color for stars */
+            cursor: pointer;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: black;
+            color: white;
+        }
+
+        .back-button {
+            margin: 20px 0;
+            padding: 10px 20px;
+            background-color: #cda075;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .back-button:hover {
+            background-color: #9E3C1E;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<header>
+    <div class="logo">
+        <img src="images/logo.png" alt="Silkroute Logo">
+    </div>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="menu.html">Menu</a></li>
+            <li><a href="reservation.html">Reservations</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+    </nav>
+</header>
+
+<img src="images/chef.png" style="width: 100%; height: 450px;">
+
+<section class="hero">
+    <h2 style="color: #cda075; text-align: center;">Customer Reviews</h2>
+</section>
+
+<div class="reviews-container">
+    <h2>What Our Customers Are Saying</h2>
+    <div id="reviewsList"></div>
+
+    <div class="review-form">
+        <h3>Leave a Review</h3>
+        <div class="star-rating">
+            <span class="star" data-value="1">★</span>
+            <span class="star" data-value="2">★</span>
+            <span class="star" data-value="3">★</span>
+            <span class="star" data-value="4">★</span>
+            <span class="star" data-value="5">★</span>
+        </div>
+        <textarea id="reviewText" placeholder="Write your review here..."></textarea>
+        <button class="btn-submit" id="submitReview">Submit Review</button>
+    </div>
+
+    <button class="back-button" onclick="window.location.href='index.html'">Back to Home</button>
+</div>
+
+<footer>
+    <p>&copy; 2024 Silkroute. All Rights Reserved.</p>
+    <ul>
+        <li><a href="#" style="color: white;">Facebook</a></li>
+        <li><a href="#" style="color: white;">Instagram</a></li>
+        <li><a href="#" style="color: white;">Twitter</a></li>
+    </ul>
+</footer>
+
+<script>
+    // Sample existing reviews
+    const reviews = [
+        { text: "Amazing food and great service!", rating: 5 },
+        { text: "A wonderful dining experience.", rating: 4 },
+        { text: "Loved the ambiance and the flavors.", rating: 5 }
+    ];
+
+    let selectedRating = 0;
+
+    // Function to display reviews
+    function displayReviews() {
+        const reviewsList = document.getElementById('reviewsList');
+        reviewsList.innerHTML = ''; // Clear previous reviews
+        reviews.forEach((review) => {
+            const reviewBox = document.createElement('div');
+            reviewBox.className = 'review-box';
+
+            // Create stars for the rating
+            const starRating = document.createElement('div');
+            starRating.className = 'star-rating';
+            for (let i = 0; i < review.rating; i++) {
+                starRating.innerHTML += '★';
+            }
+            reviewBox.appendChild(starRating);
+
+            const reviewText = document.createElement('div');
+            reviewText.textContent = review.text; // Get the review text
+            reviewBox.appendChild(reviewText);
+            reviewsList.appendChild(reviewBox);
+        });
+    }
+
+    // Event listeners for star rating
+    document.querySelectorAll('.star').forEach(star => {
+        star.addEventListener('click', () => {
+            selectedRating = star.getAttribute('data-value');
+            document.querySelectorAll('.star').forEach(s => {
+                s.style.color = (s.getAttribute('data-value') <= selectedRating) ? '#cda075' : 'grey';
+            });
+        });
+    });
+
+    // Function to submit a new review
+    document.getElementById('submitReview').addEventListener('click', () => {
+        const reviewText = document.getElementById('reviewText').value;
+        if (reviewText && selectedRating) {
+            const newReview = { text: reviewText, rating: selectedRating };
+            reviews.push(newReview); // Add new review to the array
+            document.getElementById('reviewText').value = ''; // Clear input
+            selectedRating = 0; // Reset rating
+
+            // Reset star color to grey after submission
+            document.querySelectorAll('.star').forEach(star => {
+                star.style.color = 'grey';
+            });
+
+            displayReviews(); // Refresh reviews display
+        }
+    });
+
+    // Initial display of reviews
+    displayReviews();
+</script>
+
+</body>
+</html>
