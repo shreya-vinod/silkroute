@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Silk Route - Payment</title>
+    <link rel="icon" href="images/logo.png" type="image/x-icon"> 
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #000;
+            color: white;
+        }
+        .container {
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            padding: 20px;
+            border-bottom: 2px solid #cda075;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .section h2 {
+            color: #cda075;
+        }
+        .summary, .customer-details {
+            background-color: #222;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .total, .gst {
+            margin-top: 10px;
+        }
+        .map {
+            margin-top: 20px;
+        }
+        iframe {
+            width: 100%;
+            height: 400px;
+            border: 0;
+        }
+        button {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            padding: 15px;
+            font-size: 18px;
+            cursor: pointer;
+            width: 100%;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Payment Summary</h1>
+        </div>
+
+        <!-- Customer Details Section -->
+        <div class="section customer-details">
+            <h2>Customer Details</h2>
+            <p id="customer-name"></p>
+            <p id="customer-email"></p>
+            <p id="customer-phone"></p>
+            <p id="customer-address"></p>
+            <p id="customer-franchise"></p>
+        </div>
+
+        <!-- Order Summary Section -->
+        <div class="section summary">
+            <h2>Order Summary</h2>
+            <div id="order-details"></div>
+            <p class="total" id="total-amount"></p>
+            <p class="gst" id="gst-amount"></p>
+            <p class="total" id="total-with-gst"></p>
+        </div>
+
+        <!-- Google Maps Section -->
+        <div class="section map">
+            <h2>Franchise Location</h2>
+            <iframe id="google-map" src="" allowfullscreen></iframe>
+        </div>
+
+        <!-- Proceed Button -->
+        <button id="complete-payment">Complete Payment</button>
+    </div>
+
+    <script>
+        // Retrieve data from localStorage
+        const customerDetails = JSON.parse(localStorage.getItem('customerDetails'));
+        const cart = JSON.parse(localStorage.getItem('cart'));
+
+        // Display Customer Details
+        document.getElementById('customer-name').textContent = `Name: ${customerDetails.name}`;
+        document.getElementById('customer-email').textContent = `Email: ${customerDetails.email}`;
+        document.getElementById('customer-phone').textContent = `Phone: ${customerDetails.phone}`;
+        document.getElementById('customer-address').textContent = `Address: ${customerDetails.address}`;
+        document.getElementById('customer-franchise').textContent = `Franchise: ${customerDetails.franchise}`;
+
+        // Display Order Summary and Calculate Total with GST
+        let totalAmount = 0;
+        const orderDetailsElement = document.getElementById('order-details');
+        cart.forEach(item => {
+            const itemTotal = item.price * item.quantity;
+            totalAmount += itemTotal;
+            orderDetailsElement.innerHTML += `<p>${item.name} (x${item.quantity}) - $${itemTotal.toFixed(2)}</p>`;
+        });
+
+        const gst = totalAmount * 0.12; // 12% GST
+        const totalWithGST = totalAmount + gst;
+
+        document.getElementById('total-amount').textContent = `Total Amount (without GST): $${totalAmount.toFixed(2)}`;
+        document.getElementById('gst-amount').textContent = `GST (12%): $${gst.toFixed(2)}`;
+        document.getElementById('total-with-gst').textContent = `Total Amount (with GST): $${totalWithGST.toFixed(2)}`;
+
+        // Function to set the Google Map based on franchise
+        function setGoogleMap(franchise) {
+            let latitude, longitude;
+
+            switch(franchise) {
+                case 'Indian Accent, New Delhi':
+                    latitude = 28.5897;
+                    longitude = 77.2058;
+                    break;
+                case 'Avartana, Chennai':
+                    latitude = 13.0128;
+                    longitude = 80.2304;
+                    break;
+                case 'Karavalli, Bengaluru':
+                    latitude = 12.9716;
+                    longitude = 77.5946;
+                    break;
+                default:
+                    latitude = 0;
+                    longitude = 0; // Fallback coordinates
+            }
+
+            const googleMapIframe = document.getElementById('google-map');
+            googleMapIframe.src = `https://www.google.com/maps?q=${latitude},${longitude}&z=15&output=embed`;
+        }
+
+        // Set the map based on the selected franchise
+        setGoogleMap(customerDetails.franchise);
+
+        // Handle Complete Payment button click
+        document.getElementById('complete-payment').addEventListener('click', () => {
+            // Save order details to localStorage
+            localStorage.setItem('orderDetails', JSON.stringify(cart)); // Store cart items
+            
+            alert('Payment completed! Thank you for your order.');
+            
+            // Optionally clear cart and customer details here if needed
+            // localStorage.clear();
+            
+            // Redirect to a success page or homepage after payment
+            window.location.href = 'success.html';
+        });
+    </script>
+</body>
+</html>

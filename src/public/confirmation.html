@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Silk Route - Payment Confirmation</title>
+    <link rel="icon" href="images/logo.png" type="image/x-icon"> 
+
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .confirmation {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+        }
+
+        .reservation-box {
+            background-color: #cda075; /* Decorative box color */
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .restaurant-image {
+            width: 300px; /* Adjust as needed */
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 800px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="images/logo.png" alt="Silkroute Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="reservation.html">Reservations</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="reviews.html">Reviews</a></li>
+            </ul>
+        </nav>
+        <div class="auth-links">
+            <a href="login.html" class="login-btn"><i class="fas fa-sign-in-alt"></i> Login</a>
+            <a href="signup.html" class="signup-btn"><i class="fas fa-user-plus"></i> Sign Up</a>
+        </div>
+    </header>
+
+    <section class="confirmation">
+        <h1>Payment Successful!</h1>
+        <p>Your reservation has been confirmed.</p>
+        <div class="container">
+            <div class="reservation-box" id="reservationDetails"></div>
+            <img src="images/res1.png" alt="Restaurant" class="restaurant-image"> <!-- Update with your image path -->
+        </div>
+        <a href="index.html" class="btn">Back to Home</a>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Silkroute. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Get URL parameters
+        const params = new URLSearchParams(window.location.search);
+        const name = params.get('name');
+        const date = params.get('date');
+        const time = params.get('time');
+        const guests = params.get('guests');
+        const franchise = params.get('franchise'); // Get franchise info
+
+        // Display reservation details
+        document.getElementById('reservationDetails').innerHTML = `
+            <h2>Reservation Details</h2>
+            <p>Name: ${name}</p>
+            <p>Date: ${date}</p>
+            <p>Time: ${time}</p>
+            <p>Number of Guests: ${guests}</p>
+            <p>Franchise: ${franchise}</p> <!-- Display franchise info -->
+        `;
+    </script>
+</body>
+</html>

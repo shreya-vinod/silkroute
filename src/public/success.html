@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Complete</title>
+    <link rel="icon" href="images/logo.png" type="image/x-icon"> 
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #000;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+        .checkmark {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #28a745;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .checkmark:before {
+            content: '✓';
+            font-size: 60px;
+            color: white;
+        }
+        h1 {
+            color: #cda075;
+            font-size: 36px;
+            margin: 20px 0;
+        }
+        p {
+            font-size: 18px;
+            color: #ddd;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <!-- Checkmark animation -->
+    <div class="checkmark"></div>
+    
+    <!-- Order Complete Message -->
+    <h1>Order Complete!</h1>
+    <p>Your order details have been sent to your phone number: <span id="phone-number"></span>.</p>
+
+    <!-- Back to Home Button -->
+    <button onclick="goHome()">
+        Go to Home
+    </button>
+
+    <script>
+        // Retrieve the phone number from localStorage
+        const customerDetails = JSON.parse(localStorage.getItem('customerDetails'));
+        document.getElementById('phone-number').textContent = customerDetails.phone;
+
+        // Redirect to the homepage
+        function goHome() {
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

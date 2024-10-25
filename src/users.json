@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Shruti",
+    "email": "shrutibhandare35@gmail.com",
+    "password": "$2b$10$Qhd3ibTKtxnZY6YjJ9EK/ukUkAlienzmFaI4XzGGbMNOz9FwQsf7S",
+    "role": "Manager"
+  },
+  {
+    "name": "Rumit",
+    "email": "rumitamonkar@gmail.com",
+    "password": "$2b$10$G1v3ojY1oOPslWiwAoJyJ.kfEcsE.v9PnS61npJThP2JHKgHODRH2",
+    "role": "IT Desk"
+  },
+  {
+    "name": "Shreya",
+    "email": "shreyavinod24@gmail.com",
+    "password": "$2b$10$PcBSX.h5KEV3VjPPRZAFaeHC05knhhgdUt/ble2h5utomKu7fjKPm",
+    "role": "Delivery"
+  },
+  {
+    "name": "Ravi",
+    "email": "ravi@gmail.com",
+    "password": "$2b$10$O8hUappkv2rVxle6hB7MEuKCiGIAH7nNW5szn5kjNniophgazhNWC",
+    "role": "Manager"
+  }
+]

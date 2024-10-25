@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Silk Route - Reservations</title>
+    <link rel="icon" href="images/logo.png" type="image/x-icon"> 
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <header>
+        <div class="logo">
+            <img src="images/logo.png" alt="Silkroute Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="reviews.html">Reviews</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Reservation Form -->
+    <section class="reservation">
+        <h1 style="color: #cda075;">Make a Reservation</h1>
+        <form id="reservationForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required>
+
+            <label for="time">Time:</label>
+            <input type="time" id="time" name="time" required>
+
+            <label for="guests">Number of Guests:</label>
+            <input type="number" id="guests" name="guests" required>
+
+            <label for="franchise">Select Franchise:</label>
+            <div style="text-align: center;">
+                <select id="franchise" name="franchise" required>
+                    <option value="" disabled selected>Select a franchise</option>
+                    <option value="Indian Accent">Indian Accent, New Delhi</option>
+                    <option value="Avartana">Avartana, Chennai</option>
+                    <option value="Karavalli">Karavalli, Bengaluru</option>
+                </select>
+            </div>
+            <hr>
+            <br>
+            <br>
+            <br>
+            
+            <button type="submit" class="btn">Book Now</button>
+        </form>
+        <div class="social-login">
+            <h3>Or Connect With</h3>
+            <a href="https://www.facebook.com" class="btn social facebook">Login with Facebook</a>
+            <a href="https://www.instagram.com" class="btn social instagram">Login with Instagram</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Silkroute. All Rights Reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

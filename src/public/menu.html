@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Silk Route - Menu</title>
+    <link rel="icon" href="images/logo.png" type="image/x-icon"> 
+    <link rel="stylesheet" href="styles.css">
+
+    <script defer>
+        let cart = [];
+
+        // Function to handle adding items to cart
+        function addToCart(itemName, itemPrice, itemQuantity, itemId) {
+            const existingItem = cart.find(item => item.name === itemName);
+
+            if (existingItem) {
+                // Update quantity if item already exists
+                existingItem.quantity += itemQuantity;
+            } else {
+                // Add new item to cart
+                cart.push({ name: itemName, price: itemPrice, quantity: itemQuantity });
+            }
+
+            document.querySelector(`#item-quantity-${itemId}`).textContent = 1; // Reset quantity in UI
+            updateCartDisplay();
+        }
+
+        // Function to update quantity on the page
+        function updateQuantity(button, itemId, change) {
+            const quantityElement = document.querySelector(`#item-quantity-${itemId}`);
+            let currentQuantity = parseInt(quantityElement.textContent);
+            currentQuantity += change;
+
+            // Ensure quantity doesn't fall below 1
+            if (currentQuantity < 1) {
+                currentQuantity = 1;
+            }
+
+            // Update the quantity element in UI
+            quantityElement.textContent = currentQuantity;
+        }
+
+        // Function to update cart display and total cost
+        function updateCartDisplay() {
+            const cartDetails = document.getElementById('cart-details');
+            const totalCostElement = document.getElementById('total-cost');
+            const proceedButton = document.getElementById('proceed-button');
+
+            cartDetails.innerHTML = ''; // Clear previous items
+            let totalCost = 0;
+
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                totalCost += itemTotal;
+                cartDetails.innerHTML += `
+                    <p>${item.name} (x${item.quantity}) - ₹${itemTotal.toFixed(2)}</p>
+                `;
+            });
+
+            totalCostElement.textContent = `Total: ₹${totalCost.toFixed(2)}`;
+
+            // Show the cart details and proceed button if there are items in the cart
+            document.getElementById('cart-summary').style.display = cart.length > 0 ? 'block' : 'none';
+            proceedButton.style.display = cart.length > 0 ? 'block' : 'none';
+        }
+
+        // Function to handle Proceed to Payment
+        function proceedToPayment() {
+            const customerDetailsForm = document.getElementById('customerDetailsForm');
+            const customerDetails = {
+                name: customerDetailsForm.name.value,
+                email: customerDetailsForm.email.value,
+                phone: customerDetailsForm.phone.value,
+                address: customerDetailsForm.address.value,
+                franchise: customerDetailsForm.franchise.value
+            };
+
+            // Store customer details and cart in localStorage for the next page
+            localStorage.setItem('customerDetails', JSON.stringify(customerDetails));
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+            // Redirect to the payment page (assuming you have one)
+            window.location.href = 'payment.html';
+        }
+    </script>
+</head>
+
+
+<body>
+    <!-- Navigation Bar -->
+    <header>
+        <div class="logo">
+            <img src="images/logo.png" alt="Silkroute Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="reservation.html">Reservations</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="reviews.html">Reviews</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Full-width customer form -->
+    <div class="customer-form" style="padding: 20px;">
+        <h2 style="color: #cda075; text-align: center;">Customer Details</h2>
+        <form id="customerDetailsForm">
+            <label for="name" style="color: white;">Name:</label>
+            <input type="text" id="name" name="name" required style="width: calc(100% - 20px); padding: 10px; font-size: 16px; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 10px;">
+            
+            <label for="email" style="color: white;">Email:</label>
+            <input type="email" id="email" name="email" required style="width: calc(100% - 20px); padding: 10px; font-size: 16px; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 10px;">
+            
+            <label for="phone" style="color: white;">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" required style="width: calc(100% - 20px); padding: 10px; font-size: 16px; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 10px;">
+            
+            <label for="address" style="color: white;">Customer Address:</label>
+            <input type="text" id="address" name="address" required style="width: calc(100% - 20px); padding: 10px; font-size: 16px; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 10px;">
+
+            <label for="franchise" style="color: white;">Select Franchise:</label>
+            <select id="franchise" name="franchise" style="width: calc(100% - 20px); padding: 10px; font-size: 16px; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 20px;">
+                <option value="Indian Accent, New Delhi">Indian Accent, New Delhi</option>
+                <option value="Avartana, Chennai">Avartana, Chennai</option>
+                <option value="Karavalli, Bengaluru">Karavalli, Bengaluru</option>
+            </select>
+        </form>
+    </div>
+
+    <!-- Categories -->
+    <section class="menu-section" style="padding: 20px;">
+        <h1 style="color: #cda075; text-align: center;">MENU</h1>
+
+        <!-- Appetizers Category -->
+        <div class="menu-category" style="margin-bottom: 40px;">
+            <h3 style="font-size: 24px; margin-bottom: 10px; color: #cda075; text-align: center;"><i>Appetizers</i></h3>
+            <div class="menu-items" style="display: flex; flex-direction: column; align-items: center;">
+                <!-- Dumplings -->
+                <div class="menu-item" style="background-color: #CDA075; padding: 30px; margin: 20px auto; border-radius: 8px; max-width: 600px; display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                    <img src="images/dumplings.jpg" alt="Dumplings" style="width: 100px; height: 100px; object-fit: cover; margin-right: 20px;">
+                    <div class="item-details" style="flex-grow: 1; display: flex; flex-direction: column;">
+                        <h4 style="font-size: 20px; color: white; margin: 0;">Dumplings</h4>
+                        <p style="font-size: 18px; color: #fff;">₹250 - Bite-sized pockets filled with flavorful goodness.</p>
+                        <div class="item-controls" style="display: flex; align-items: center; margin-top: 10px;">
+                            <button class="decrement" style="background-color: #007bff; color: #fff; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px; font-size: 16px; margin-right: 10px;" onclick="updateQuantity(this, 'dumplings', -1)">-</button>
+                            <span id="item-quantity-dumplings" class="item-quantity" style="font-size: 18px;">1</span>
+                            <button class="increment" style="background-color: #007bff; color: #fff; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px; font-size: 16px; margin-left: 10px;" onclick="updateQuantity(this, 'dumplings', 1)">+</button>
+                        </div>
+                        <button class="add-to-cart" style="background-color: #28a745; color: #fff; border: none; padding: 10px; cursor: pointer; border-radius: 5px; margin-top: 10px;" onclick="addToCart('Dumplings', 250, parseInt(document.querySelector('#item-quantity-dumplings').textContent), 'dumplings')">Add to Cart</button>
+                    </div>
+                </div>
+
+                <!-- Egg Rolls -->
+                <div class="menu-item" style="background-color: #CDA075; padding: 30px; margin: 20px auto; border-radius: 8px; max-width: 600px; display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                    <img src="images/eggrolls.jpg" alt="Egg Rolls" style="width: 100px; height: 100px; object-fit: cover; margin-right: 20px;">
+                    <div class="item-details" style="flex-grow: 1; display: flex; flex-direction: column;">
+                        <h4 style="font-size: 20px; color: white; margin: 0;">Egg Rolls</h4>
+                        <p style="font-size: 18px; color: #fff;">₹180 - Crispy on the outside, savory on the inside, a perfect snack.</p>
+                        <div class="item-controls" style="display: flex; align-items: center; margin-top: 10px;">
+                            <button class="decrement" style="background-color: #007bff; color: #fff; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px; font-size: 16px; margin-right: 10px;" onclick="updateQuantity(this, 'eggrolls', -1)">-</button>
+                            <span id="item-quantity-eggrolls" class="item-quantity" style="font-size: 18px;">1</span>
+                            <button class="increment" style="background-color: #007bff; color: #fff; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px; font-size: 16px; margin-left: 10px;" onclick="updateQuantity(this, 'eggrolls', 1)">+</button>
+                        </div>
+                        <button class="add-to-cart" style="background-color: #28a745; color: #fff; border: none; padding: 10px; cursor: pointer; border-radius: 5px; margin-top: 10px;" onclick="addToCart('Egg Rolls', 180, parseInt(document.querySelector('#item-quantity-eggrolls').textContent), 'eggrolls')">Add to Cart</button>
+                    </div>
+                </div>
+
+                <!-- Baozi -->
+                <div class="menu-item" style="background-color: #CDA075; padding: 30px; margin: 20px auto; border-radius: 8px; max-width: 600px; display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                    <img src="images/baozi.jpg" alt="Baozi" style="width: 100px; height: 100px; object-fit: cover; margin-right: 20px;">
+                    <div class="item-details" style="flex-grow: 1; display: flex; flex-direction: column;">
+                        <h4 style="font-size: 20px; color: white; margin: 0;">Baozi (Steamed Buns)</h4>
+                        <p style="font-size: 18px; color: #fff;">₹220 - Fluffy steamed buns stuffed with delicious fillings.</p>
+                        <div class="item-controls" style="display: flex; align-items: center; margin-top: 10px;">
+                            <button class="decrement" style="background-color: #007bff; color: #fff; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px; font-size: 16px; margin-right: 10px;" onclick="updateQuantity(this, 'baozi', -1)">-</button>
+                            <span id="item-quantity-baozi" class="item-quantity" style="font-size: 18px;">1</span>
+                            <button class="increment" style="background-color: #007bff; color: #fff; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px; font-size: 16px; margin-left: 10px;" onclick="updateQuantity(this, 'baozi', 1)">+</button>
+                        </div>
+                        <button class="add-to-cart" style="background-color: #28a745; color: #fff; border: none; padding: 10px; cursor: pointer; border-radius: 5px; margin-top: 10px;" onclick="addToCart('Baozi', 220, parseInt(document.querySelector('#item-quantity-baozi').textContent), 'baozi')">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mains Category -->
+        <div class="menu-category" style="margin-bottom: 40px;">
+             <h3 style="font-size: 24px; margin-bottom: 10px; color: #cda075; text-align: center;"><i>Mains</i></h3>
+             <div class="menu-items" style="display: flex; flex-direction: column; align-items: center;">
+
+                 <!-- Orange Chicken & Rice -->
+                 <div class="menu-item" style="background-color: #CDA075; padding: 30px; margin: 20px auto; border-radius: 8px; max-width: 600px; display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                     <img src="images/orangechicken.jpg" alt="Orange Chicken & Rice" style="width: 100px; height: 100px; object-fit: cover; margin-right: 20px;">
+                     <div class="item-details" style="flex-grow: 1; display: flex; flex-direction: column;">
+                         <h4 style="font-size: 20px; color: white; margin: 0;">Orange Chicken & Rice</h4>
+                         <p style="font-size: 18px; color: #fff;">₹320 - Tangy, sweet, and savory chicken served with fluffy rice.</p>
+                         <div class="item-controls" style="display: flex; align-items: center; margin-top: 10px;">
+                             <button class="decrement" style="background-color: #007bff; color: #fff; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px; font-size: 16px; margin-right: 10px;" onclick="updateQuantity(this, 'orangechicken', -1)">-</button>
+                             <span id="item-quantity-orangechicken" class="item-quantity" style="font-size: 18px;">1</span>
+                             <button class="increment" style="background-color: #007bff; color: #fff; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px; font-size: 16px; margin-left: 10px;" onclick="updateQuantity(this, 'orangechicken', 1)">+</button>
+                         </div>
+                         <button class="add-to-cart" style="background-color: #28a745; color: #fff; border: none; padding: 10px; cursor: pointer; border-radius: 5px; margin-top: 10px;" onclick="addToCart('Orange Chicken & Rice', 320, parseInt(document.querySelector('#item-quantity-orangechicken').textContent), 'orangechicken')">Add to Cart</button>
+                     </div>
+                 </div>
+
+                 <!-- Chicken Chow Mein -->
+                 <div class="menu-item" style="background-color: #CDA075; padding: 30px; margin: 20px auto; border-radius: 8px; max-width: 600px; display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                     <img src="images/chowmein.jpg" alt="Chicken Chow Mein" style="width: 100px; height: 100px; object-fit: cover; margin-right: 20px;">
+                     <div class="item-details" style="flex-grow: 1; display: flex; flex-direction: column;">
+                         <h4 style="font-size: 20px; color: white; margin: 0;">Chicken Chow Mein</h4>
+                         <p style="font-size: 18px; color: #fff;">₹280 - Stir-fried noodles tossed with tender chicken and veggies.</p>
+                         <div class="item-controls" style="display: flex; align-items: center; margin-top: 10px;">
+                             <button class="decrement" style="background-color: #007bff; color: #fff; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px; font-size: 16px; margin-right: 10px;" onclick="updateQuantity(this, 'chowmein', -1)">-</button>
+                             <span id="item-quantity-chowmein" class="item-quantity" style="font-size: 18px;">1</span>
+                             <button class="increment" style="background-color: #007bff; color: #fff; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px; font-size: 16px; margin-left: 10px;" onclick="updateQuantity(this, 'chowmein', 1)">+</button>
+                         </div>
+                         <button class="add-to-cart" style="background-color: #28a745; color: #fff; border: none; padding: 10px; cursor: pointer; border-radius: 5px; margin-top: 10px;" onclick="addToCart('Chicken Chow Mein', 280, parseInt(document.querySelector('#item-quantity-chowmein').textContent), 'chowmein')">Add to Cart</button>
+                     </div>
+                 </div>
+
+                 <!-- Mapo Tofu -->
+                 <div class="menu-item" style="background-color: #CDA075; padding: 30px; margin: 20px auto; border-radius: 8px; max-width: 600px; display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                     <img src="images/mapotofu.jpg" alt="Mapo Tofu" style="width: 100px; height: 100px; object-fit: cover; margin-right: 20px;">
+                     <div class="item-details" style="flex-grow: 1; display: flex; flex-direction: column;">
+                         <h4 style="font-size: 20px; color: white; margin: 0;">Mapo Tofu</h4>
+                         <p style="font-size: 18px; color: #fff;">₹240 - A spicy and numbing Sichuan dish with tofu in a rich sauce.</p>
+                         <div class="item-controls" style="display: flex; align-items: center; margin-top: 10px;">
+                             <button class="decrement" style="background-color: #007bff; color: #fff; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px; font-size: 16px; margin-right: 10px;" onclick="updateQuantity(this, 'mapotofu', -1)">-</button>
+                             <span id="item-quantity-mapotofu" class="item-quantity" style="font-size: 18px;">1</span>
+                             <button class="increment" style="background-color: #007bff; color: #fff; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px; font-size: 16px; margin-left: 10px;" onclick="updateQuantity(this, 'mapotofu', 1)">+</button>
+                         </div>
+                         <button class="add-to-cart" style="background-color: #28a745; color: #fff; border: none; padding: 10px; cursor: pointer; border-radius: 5px; margin-top: 10px;" onclick="addToCart('Mapo Tofu', 240, parseInt(document.querySelector('#item-quantity-mapotofu').textContent), 'mapotofu')">Add to Cart</button>
+                     </div>
+                 </div>
+             </div>
+         </div>
+
+         <!-- Drinks Category -->
+         <div class="menu-category" style="margin-bottom: 40px;">
+             <h3 style="font-size: 24px; margin-bottom: 10px; color: #cda075; text-align: center;"><i>Drinks</i></h3>
+             <div class="menu-items" style="display: flex; flex-direction: column; align-items: center;">
+
+                 <!-- Virgin Mojito -->
+                 <div class="menu-item" style="background-color: #CDA075; padding: 30px; margin: 20px auto; border-radius: 8px; max-width: 600px; display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                     <img src="images/virginmojito.jpg" alt="Virgin Mojito" style="width: 100px; height: 100px; object-fit: cover; margin-right: 20px;">
+                     <div class="item-details" style="flex-grow: 1; display: flex; flex-direction: column;">
+                         <h4 style="font-size: 20px; color: white; margin: 0;">Virgin Mojito</h4>
+                         <p style="font-size: 18px; color: #fff;">₹150 - Refreshing and non-alcoholic drink.</p>
+                         <div class="item-controls" style="display: flex; align-items: center; margin-top: 10px;">
+                             <button class="decrement" style="background-color: #007bff; color: #fff; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px; font-size: 16px; margin-right: 10px;" onclick="updateQuantity(this, 'virginmojito', -1)">-</button>
+                             <span id="item-quantity-virginmojito" class="item-quantity" style="font-size: 18px;">1</span>
+                             <button class="increment" style="background-color: #007bff; color: #fff; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px; font-size: 16px; margin-left: 10px;" onclick="updateQuantity(this, 'virginmojito', 1)">+</button>
+                         </div>
+                         <button class="add-to-cart" style="background-color: #28a745; color: #fff; border: none; padding: 10px; cursor: pointer; border-radius: 5px; margin-top: 10px;" onclick="addToCart('Virgin Mojito', 150, parseInt(document.querySelector('#item-quantity-virginmojito').textContent), 'virginmojito')">Add to Cart</button>
+                     </div>
+                 </div>
+
+                 <!-- Huangjiu (Rice Wine) -->
+                 <div class="menu-item" style="background-color: #CDA075; padding: 30px; margin: 20px auto; border-radius: 8px; max-width: 600px; display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                     <img src="images/huangjiu.jpg" alt="Huangjiu" style="width: 100px; height: 100px; object-fit: cover; margin-right: 20px;">
+                     <div class="item-details" style="flex-grow: 1; display: flex; flex-direction: column;">
+                         <h4 style="font-size: 20px; color: white; margin: 0;">Huangjiu (Rice Wine)</h4>
+                         <p style="font-size: 18px; color: #fff;">₹400 - An ancient Chinese fermented rice wine with a mellow taste.</p>
+                         <div class="item-controls" style="display: flex; align-items: center; margin-top: 10px;">
+                             <button class="decrement" style="background-color: #007bff; color: #fff; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px; font-size: 16px; margin-right: 10px;" onclick="updateQuantity(this, 'huangjiu', -1)">-</button>
+                             <span id="item-quantity-huangjiu" class="item-quantity" style="font-size: 18px;">1</span>
+                             <button class="increment" style="background-color: #007bff; color: #fff; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px; font-size: 16px; margin-left: 10px;" onclick="updateQuantity(this, 'huangjiu', 1)">+</button>
+                         </div>
+                         <button class="add-to-cart" style="background-color: #28a745; color: #fff; border: none; padding: 10px; cursor: pointer; border-radius: 5px; margin-top: 10px;" onclick="addToCart('Huangjiu (Rice Wine)', 400, parseInt(document.querySelector('#item-quantity-huangjiu').textContent), 'huangjiu')">Add to Cart</button>
+                     </div>
+                 </div>
+
+                 <!-- Boba Tea -->
+                 <div class="menu-item" style="background-color: #CDA075; padding: 30px; margin: 20px auto; border-radius: 8px; max-width: 600px; display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                     <img src="images/bobatea.jpg" alt="Boba Tea" style="width: 100px; height: 100px; object-fit: cover; margin-right: 20px;">
+                     <div class="item-details" style="flex-grow: 1; display: flex; flex-direction: column;">
+                         <h4 style="font-size: 20px; color: white; margin: 0;">Boba Tea</h4>
+                         <p style="font-size: 18px; color: #fff;">₹200 - Sweet, creamy tea with chewy tapioca pearls.</p>
+                         <div class="item-controls" style="display: flex; align-items: center; margin-top: 10px;">
+                             <button class="decrement" style="background-color: #007bff; color: #fff; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px; font-size: 16px; margin-right: 10px;" onclick="updateQuantity(this, 'bobatea', -1)">-</button>
+                             <span id="item-quantity-bobatea" class="item-quantity" style="font-size: 18px;">1</span>
+                             <button class="increment" style="background-color: #007bff; color: #fff; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px; font-size: 16px; margin-left: 10px;" onclick="updateQuantity(this, 'bobatea', 1)">+</button>
+                         </div>
+                         <button class="add-to-cart" style="background-color: #28a745; color: #fff; border: none; padding: 10px; cursor: pointer; border-radius: 5px; margin-top: 10px;" onclick="addToCart('Boba Tea', 200, parseInt(document.querySelector('#item-quantity-bobatea').textContent), 'bobatea')">Add to Cart</button>
+                     </div>
+                 </div>
+             </div>
+         </div>
+
+         <!-- Desserts Category -->
+         <div class="menu-category" style="margin-bottom: 40px;">
+             <h3 style="font-size: 24px; margin-bottom: 10px; color: #cda075; text-align: center;"><i>Desserts</i></h3>
+             <div class="menu-items" style="display: flex; flex-direction: column; align-items: center;">
+
+                 <!-- Mooncakes -->
+                 <div class="menu-item" style="background-color: #CDA075; padding: 30px; margin: 20px auto; border-radius: 8px; max-width: 600px; display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                     <img src="images/mooncakes.jpg" alt="Mooncakes" style="width: 100px; height: 100px; object-fit: cover; margin-right: 20px;">
+                     <div class="item-details" style="flex-grow: 1; display: flex; flex-direction: column;">
+                         <h4 style="font-size: 20px; color: white; margin: 0;">Mooncakes</h4>
+                         <p style="font-size: 18px; color: #fff;">₹180 - Traditional Chinese pastries filled with sweet or savory delights.</p>
+                         <div class="item-controls" style="display: flex; align-items: center; margin-top: 10px;">
+                             <button class="decrement" style="background-color: #007bff; color: #fff; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px; font-size: 16px; margin-right: 10px;" onclick="updateQuantity(this, 'mooncakes', -1)">-</button>
+                             <span id="item-quantity-mooncakes" class="item-quantity" style="font-size: 18px;">1</span>
+                             <button class="increment" style="background-color: #007bff; color: #fff; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px; font-size: 16px; margin-left: 10px;" onclick="updateQuantity(this, 'mooncakes', 1)">+</button>
+                         </div>
+                         <button class="add-to-cart" style="background-color: #28a745; color: #fff; border: none; padding: 10px; cursor: pointer; border-radius: 5px; margin-top: 10px;" onclick="addToCart('Mooncakes', 180, parseInt(document.querySelector('#item-quantity-mooncakes').textContent), 'mooncakes')">Add to Cart</button>
+                     </div>
+                 </div>
+
+                 <!-- Tiramisu -->
+                 <div class="menu-item" style="background-color: #CDA075; padding: 30px; margin: 20px auto; border-radius: 8px; max-width: 600px; display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                     <img src="images/tiramisu.jpg" alt="Tiramisu" style="width: 100px; height: 100px; object-fit: cover; margin-right: 20px;">
+                     <div class="item-details" style="flex-grow: 1; display: flex; flex-direction: column;">
+                         <h4 style="font-size: 20px; color: white; margin: 0;">Tiramisu</h4>
+                         <p style="font-size: 18px; color: #fff;">₹220 - An Italian layered dessert of coffee-soaked ladyfingers and creamy mascarpone.</p>
+                         <div class="item-controls" style="display: flex; align-items: center; margin-top: 10px;">
+                             <button class="decrement" style="background-color: #007bff; color: #fff; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px; font-size: 16px; margin-right: 10px;" onclick="updateQuantity(this, 'tiramisu', -1)">-</button>
+                             <span id="item-quantity-tiramisu" class="item-quantity" style="font-size: 18px;">1</span>
+                             <button class="increment" style="background-color: #007bff; color: #fff; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px; font-size: 16px; margin-left: 10px;" onclick="updateQuantity(this, 'tiramisu', 1)">+</button>
+                         </div>
+                         <button class="add-to-cart" style="background-color: #28a745; color: #fff; border: none; padding: 10px; cursor: pointer; border-radius: 5px; margin-top: 10px;" onclick="addToCart('Tiramisu', 220, parseInt(document.querySelector('#item-quantity-tiramisu').textContent), 'tiramisu')">Add to Cart</button>
+                     </div>
+                 </div>
+
+                 <!-- Ma Lai Go -->
+                 <div class="menu-item" style="background-color: #CDA075; padding: 30px; margin: 20px auto; border-radius: 8px; max-width: 600px; display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                     <img src="images/malaigo.jpg" alt="Ma Lai Go" style="width: 100px; height: 100px; object-fit: cover; margin-right: 20px;">
+                     <div class="item-details" style="flex-grow: 1; display: flex; flex-direction: column;">
+                         <h4 style="font-size: 20px; color: white; margin: 0;">Ma Lai Go</h4>
+                         <p style="font-size: 18px; color: #fff;">₹170 - A soft and spongy Cantonese steamed sponge cake.</p>
+                         <div class="item-controls" style="display: flex; align-items: center; margin-top: 10px;">
+                             <button class="decrement" style="background-color: #007bff; color: #fff; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px; font-size: 16px; margin-right: 10px;" onclick="updateQuantity(this, 'malaigo', -1)">-</button>
+                             <span id="item-quantity-malaigo" class="item-quantity" style="font-size: 18px;">1</span>
+                             <button class="increment" style="background-color: #007bff; color: #fff; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px; font-size: 16px; margin-left: 10px;" onclick="updateQuantity(this, 'malaigo', 1)">+</button>
+                         </div>
+                         <button class="add-to-cart" style="background-color: #28a745; color: #fff; border: none; padding: 10px; cursor: pointer; border-radius: 5px; margin-top: 10px;" onclick="addToCart('Ma Lai Go', 170, parseInt(document.querySelector('#item-quantity-malaigo').textContent), 'malaigo')">Add to Cart</button>
+                     </div>
+                 </div>
+             </div>
+         </div>
+
+        <!-- Cart Summary -->
+        <section id="cart-summary" style="padding: 20px; background-color: #333; display: none;">
+            <h3 style="color: #cda075;">Cart Summary</h3>
+            <div id="cart-details" style="color: white;"></div>
+            <p id="total-cost" style="color: #fff; font-size: 18px; margin-top: 10px;">Total: ₹0.00</p>
+        </section>
+
+        <!-- Proceed to Payment Button -->
+        <button id="proceed-button" style="background-color: #28a745; color: white; border: none; padding: 15px; width: 100%; font-size: 18px; cursor: pointer; display: none;" onclick="proceedToPayment()">
+            Proceed to Payment
+        </button>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background-color: #000; color: white; text-align: center; padding: 20px; border-top: 2px solid #cda075;">
+        <p>&copy; 2024 Silkroute. All rights reserved.</p>
+    </footer>
+</body>
+</html>
