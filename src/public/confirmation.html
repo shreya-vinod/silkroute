@@ -27,7 +27,7 @@
         }
 
         .restaurant-image {
-            width: 300px; /* Adjust as needed */
+            width: 300px; 
             height: auto;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -68,7 +68,7 @@
         <p>Your reservation has been confirmed.</p>
         <div class="container">
             <div class="reservation-box" id="reservationDetails"></div>
-            <img src="images/res1.png" alt="Restaurant" class="restaurant-image"> <!-- Update with your image path -->
+            <img src="images/res1.png" alt="Restaurant" class="restaurant-image">
         </div>
         <a href="index.html" class="btn">Back to Home</a>
     </section>
@@ -84,7 +84,7 @@
         const date = params.get('date');
         const time = params.get('time');
         const guests = params.get('guests');
-        const franchise = params.get('franchise'); // Get franchise info
+        const franchise = params.get('franchise'); 
 
         // Display reservation details
         document.getElementById('reservationDetails').innerHTML = `
@@ -93,7 +93,7 @@
             <p>Date: ${date}</p>
             <p>Time: ${time}</p>
             <p>Number of Guests: ${guests}</p>
-            <p>Franchise: ${franchise}</p> <!-- Display franchise info -->
+            <p>Franchise: ${franchise}</p> 
         `;
     </script>
 </body>

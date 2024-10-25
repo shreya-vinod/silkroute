@@ -115,15 +115,15 @@
         cart.forEach(item => {
             const itemTotal = item.price * item.quantity;
             totalAmount += itemTotal;
-            orderDetailsElement.innerHTML += `<p>${item.name} (x${item.quantity}) - $${itemTotal.toFixed(2)}</p>`;
+            orderDetailsElement.innerHTML += `<p>${item.name} (x${item.quantity}) - ₹${itemTotal.toFixed(2)}</p>`;
         });
 
         const gst = totalAmount * 0.12; // 12% GST
         const totalWithGST = totalAmount + gst;
 
-        document.getElementById('total-amount').textContent = `Total Amount (without GST): $${totalAmount.toFixed(2)}`;
-        document.getElementById('gst-amount').textContent = `GST (12%): $${gst.toFixed(2)}`;
-        document.getElementById('total-with-gst').textContent = `Total Amount (with GST): $${totalWithGST.toFixed(2)}`;
+        document.getElementById('total-amount').textContent = `Total Amount (without GST): ₹${totalAmount.toFixed(2)}`;
+        document.getElementById('gst-amount').textContent = `GST (12%): ₹${gst.toFixed(2)}`;
+        document.getElementById('total-with-gst').textContent = `Total Amount (with GST): ₹${totalWithGST.toFixed(2)}`;
 
         // Function to set the Google Map based on franchise
         function setGoogleMap(franchise) {
