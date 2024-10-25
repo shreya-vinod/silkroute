@@ -74,7 +74,14 @@
     <script>
         // Retrieve the phone number from localStorage
         const customerDetails = JSON.parse(localStorage.getItem('customerDetails'));
-        document.getElementById('phone-number').textContent = customerDetails.phone;
+        
+        // Check if customerDetails is available and contains the phone number
+        if (customerDetails && customerDetails.phone) {
+            document.getElementById('phone-number').textContent = customerDetails.phone;
+        } else {
+            document.getElementById('phone-number').textContent = "not available"; // Fallback message
+            console.error("Phone number not found in customer details.");
+        }
 
         // Redirect to the homepage
         function goHome() {

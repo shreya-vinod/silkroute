@@ -119,7 +119,7 @@
         const orderItemsElement = document.getElementById('order-items');
         orderDetails.forEach(item => {
             const listItem = document.createElement('li');
-            listItem.textContent = `${item.quantity} x ${item.name} - $${(item.price * item.quantity).toFixed(2)}`;
+            listItem.textContent = `${item.quantity} x ${item.name} - ₹${(item.price * item.quantity).toFixed(2)}`;
             orderItemsElement.appendChild(listItem);
         });
 
