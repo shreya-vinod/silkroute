@@ -48,6 +48,7 @@ app.post('/signup', async (req, res) => {
             // Write updated users list to users.json
             fs.writeFile(path.join(__dirname, 'users.json'), JSON.stringify(users, null, 2), (err) => {
                 if (err) {
+                    console.log(error);
                     return res.status(500).json({ message: 'Failed to save user.' });
                 }
 
